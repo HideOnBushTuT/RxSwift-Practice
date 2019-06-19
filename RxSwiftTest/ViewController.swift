@@ -9,12 +9,18 @@
 import UIKit
 import RxSwift
 
+
+enum MyError: Error {
+    case anError
+}
+
 class ViewController: UIViewController {
+    let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        // MARK: Subscribing to observables
 //        let one = 1
 //        let two = 2
 //        let three = 3
@@ -85,10 +91,69 @@ class ViewController: UIViewController {
 //                print("range: \(fibonacci)")
 //            })
         
-        // --- Example of: array ---
+        
+        // MARK: Disposing and terminating
+        // --- Example of: dispose subscription ---
+//        let disposeObservable = Observable.of("A", "B", "C")
+//
+//        let subscription = disposeObservable.subscribe { event in
+//            print(event)
+//        }
+//
+//        subscription.dispose()
+        
+        // --- Example of: dispose subscription ---
+//        Observable.of("A", "B", "C")
+//            .subscribe {
+//                print($0)
+//            }
+//            .disposed(by: disposeBag)
         
         
+        // --- Example of: create ---
+//        Observable<String>.create { observer in
+//            observer.onNext("1")
+//
+//            observer.onError(MyError.anError)
+//
+//            observer.onCompleted()
+//
+//            observer.onNext("?")
+//
+//            return Disposables.create()
+//        }
+//        .subscribe(
+//            onNext: { print($0) },
+//            onError: { print($0) },
+//            onCompleted: { print("Completed") },
+//            onDisposed: { print("Disposed") })
+//        .disposed(by: disposeBag)
         
+        //MARK: Creating observable factories
+        
+        // 1
+        var flip = false
+        
+        // 2
+        let factory: Observable<Int> = Observable.deferred {
+            
+            // 3
+            flip.toggle()
+            
+            // 4
+            if flip {
+                return Observable.of(1, 2, 3)
+            } else {
+                return Observable.of(4, 5, 6)
+            }
+        }
+    
+        for _ in 0...3 {
+            factory.subscribe(onNext: {
+                print($0, terminator: "")
+            })
+            .disposed(by: disposeBag)
+        }
     }
 
 
