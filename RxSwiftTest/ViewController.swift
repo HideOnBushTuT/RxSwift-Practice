@@ -197,6 +197,55 @@ class ViewController: UIViewController {
 //            }
 //            }
 //            .disposed(by: disposeBag)
+        
+        
+        // MARK: Subjects
+        let subject = PublishSubject<String>()
+        
+        subject.onNext("is anything listening ?")
+        
+        let subscriptionOne = subject
+            .subscribe(onNext: { (string) in
+                print(string)
+            }, onError: nil, onCompleted: nil, onDisposed: nil)
+        
+        subject.on(.next("new element"))
+        
+        subject.onNext("use onNext to emit")
+        
+        // 1. PublishSubject: Starts empty and only emits new elements to subscribers.
+        
+        
+        // 2. BehaviorSubject: Starts with an initial value and replays it or the latest element to new subscribers.
+        
+        // 3. ReplaySubject: Initialized with a buffer size and will maintain a buffer of elements up to that size and replay it to new subscribers.
+        
+        // 4. AsyncSubject: Emits only the last .next event in the sequence, and only when the subject receives a .completed event. This is a seldom used kind of subject, and you won't use it in this book. It's listed here for the sake of completeness.
+        
+        // 5. PublishRelay and BehaviorRelay: These wrap their relative subjects, but only accept .next events. You cannot add a .completed or .error event onto relays at all, so they're great for non-terminating sequences.
+        
+        let subscriptionTwo = subject
+            .subscribe { event in
+                print("2)", event.element ?? event)
+        }
+        
+        subject.onNext("3")
+        
+        subscriptionOne.dispose()
+        
+        subject.onNext("4")
+        
+        subject.onCompleted()
+        
+        subject.onNext("5")
+        
+        subscriptionTwo.dispose()
+        
+        subject
+            .subscribe { print("3)", $0.element ?? $0 ) }
+            .disposed(by: disposeBag)
+        
+        subject.onNext("?")
     }
     
 //    func loadText(from name: String) -> Single<String> {
