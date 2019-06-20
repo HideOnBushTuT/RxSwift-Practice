@@ -10,9 +10,14 @@ import UIKit
 import RxSwift
 
 
-enum MyError: Error {
-    case anError
+//enum MyError: Error {
+//    case anError
+//}
+
+enum FileReadError: Error {
+    case fileNotFound, unreadable, encodingFailed
 }
+
 
 class ViewController: UIViewController {
     let disposeBag = DisposeBag()
@@ -131,30 +136,92 @@ class ViewController: UIViewController {
         
         //MARK: Creating observable factories
         
-        // 1
-        var flip = false
+//        // 1
+//        var flip = false
+//
+//        // 2
+//        let factory: Observable<Int> = Observable.deferred {
+//
+//            // 3
+//            flip.toggle()
+//
+//            // 4
+//            if flip {
+//                return Observable.of(1, 2, 3)
+//            } else {
+//                return Observable.of(4, 5, 6)
+//            }
+//        }
+//
+//        for _ in 0...3 {
+//            factory.subscribe(onNext: {
+//                print($0, terminator: "")
+//            })
+//            .disposed(by: disposeBag)
+//        }
         
-        // 2
-        let factory: Observable<Int> = Observable.deferred {
-            
-            // 3
-            flip.toggle()
-            
-            // 4
-            if flip {
-                return Observable.of(1, 2, 3)
-            } else {
-                return Observable.of(4, 5, 6)
-            }
-        }
-    
-        for _ in 0...3 {
-            factory.subscribe(onNext: {
-                print($0, terminator: "")
-            })
-            .disposed(by: disposeBag)
-        }
+        
+        // --- Example of: traits ---
+//        Single.create { single in
+//            let disposable = Disposables.create()
+//
+//            guard let path = Bundle.main.path(forResource: "fileName", ofType: "txt") else {
+//                single(.error(FileReadError.FileReadError))
+//                return disposable
+//            }
+//
+//            guard let data = FileManager.default.contents(atPath: path) else {
+//                single(.error(FileReadError.unreadable))
+//                return disposable
+//            }
+//
+//            guard let contents = String(data: data, encoding: .utf8) else {
+//                single(.error(FileManager.encodingFailed))
+//                return disposable
+//            }
+//
+//            single(.success(contents))
+//            return disposable
+//        }
+        
+        // 1
+//        loadText(from: "Copyright")
+//            // 2
+//            .subscribe {
+//            // 3
+//            switch $0 {
+//            case .success(let string):
+//            print(string)
+//            case .error(let error):
+//            print(error)
+//            }
+//            }
+//            .disposed(by: disposeBag)
     }
+    
+//    func loadText(from name: String) -> Single<String> {
+//        return Single.create { single in
+//                        let disposable = Disposables.create()
+//
+//                        guard let path = Bundle.main.path(forResource: "fileName", ofType: "txt") else {
+//                            single(.error(FileReadError.FileReadError))
+//                            return disposable
+//                        }
+//
+//                        guard let data = FileManager.default.contents(atPath: path) else {
+//                            single(.error(FileReadError.unreadable))
+//                            return disposable
+//                        }
+//
+//                        guard let contents = String(data: data, encoding: .utf8) else {
+//                            single(.error(FileManager.encodingFailed))
+//                            return disposable
+//                        }
+//
+//                        single(.success(contents))
+//                        return disposable
+//        }
+//    }
 
 
 }
