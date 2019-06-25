@@ -15,6 +15,7 @@
 		A854B2E922B7D42700DB3776 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A854B2E722B7D42700DB3776 /* LaunchScreen.storyboard */; };
 		A854B2F422B7D42700DB3776 /* RxSwiftTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A854B2F322B7D42700DB3776 /* RxSwiftTestTests.swift */; };
 		A854B2FF22B7D42700DB3776 /* RxSwiftTestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A854B2FE22B7D42700DB3776 /* RxSwiftTestUITests.swift */; };
+		A8CD3B9E22C212E0005AE812 /* SubjectsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CD3B9D22C212E0005AE812 /* SubjectsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		A854B2FA22B7D42700DB3776 /* RxSwiftTestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RxSwiftTestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A854B2FE22B7D42700DB3776 /* RxSwiftTestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxSwiftTestUITests.swift; sourceTree = "<group>"; };
 		A854B30022B7D42700DB3776 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A8CD3B9D22C212E0005AE812 /* SubjectsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectsViewController.swift; sourceTree = "<group>"; };
 		B53D08E07350D1E0F73B2EA8 /* Pods-RxSwiftTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxSwiftTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-RxSwiftTest/Pods-RxSwiftTest.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -118,6 +120,7 @@
 				A854B2E522B7D42700DB3776 /* Assets.xcassets */,
 				A854B2E722B7D42700DB3776 /* LaunchScreen.storyboard */,
 				A854B2EA22B7D42700DB3776 /* Info.plist */,
+				A8CD3B9D22C212E0005AE812 /* SubjectsViewController.swift */,
 			);
 			path = RxSwiftTest;
 			sourceTree = "<group>";
@@ -335,6 +338,7 @@
 			files = (
 				A854B2E122B7D42400DB3776 /* ViewController.swift in Sources */,
 				A854B2DF22B7D42400DB3776 /* AppDelegate.swift in Sources */,
+				A8CD3B9E22C212E0005AE812 /* SubjectsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
