@@ -19,7 +19,8 @@ class SubjectsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        hehaviorSubjects()
+//        hehaviorSubjects()
+        replaySubjects()
     }
     
     func prints<T: CustomStringConvertible>(label: String, event: Event<T>) {
@@ -37,7 +38,7 @@ class SubjectsViewController: UIViewController {
         
         subject
             .subscribe {
-                self.prints(label: "1): \($0.element)", event: $0)
+                self.prints(label: "1): \($0.element!)", event: $0)
             }
             .disposed(by: disposeBag)
         
@@ -55,4 +56,38 @@ class SubjectsViewController: UIViewController {
         
     }
 
+    
+    func replaySubjects() {
+        let subject = ReplaySubject<String>.create(bufferSize: 3)
+        
+        subject.onNext("1")
+        subject.onNext("2")
+        subject.onNext("3")
+        
+        subject
+            .subscribe {
+                self.prints(label: "1)", event: $0)
+            }
+            .disposed(by: disposeBag)
+        
+        subject
+            .subscribe {
+                self.prints(label: "2)", event: $0)
+        }
+        .disposed(by: disposeBag)
+        
+        subject.onNext("4")
+        
+        subject.onError(MyError.anError)
+        
+        subject.dispose()
+        
+        subject
+            .subscribe {
+                self.prints(label: "3)", event: $0)
+            }
+            .disposed(by: disposeBag)
+        
+        
+    }
 }
