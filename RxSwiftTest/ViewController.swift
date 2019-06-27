@@ -24,11 +24,13 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let subjectsVC = SubjectsViewController()
-        subjectsVC.view.frame = view.bounds;
-        addChild(subjectsVC)
-        view.addSubview(subjectsVC.view)
+        let foVC = FilteringOperatorsViewController()
+        addChild(foVC)
+        view.addSubview(foVC.view)
+//        let subjectsVC = SubjectsViewController()
+//        subjectsVC.view.frame = view.bounds;
+//        addChild(subjectsVC)
+//        view.addSubview(subjectsVC.view)
         // MARK: Subscribing to observables
 //        let one = 1
 //        let two = 2
