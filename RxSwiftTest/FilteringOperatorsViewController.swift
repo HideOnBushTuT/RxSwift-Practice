@@ -27,6 +27,8 @@ class FilteringOperatorsViewController: UIViewController {
         takeUntil()
     }
     
+    
+    //MARK: Ignore Operator
     func ignoreElements() {
         let strikes = PublishSubject<String>()
         
@@ -73,6 +75,7 @@ class FilteringOperatorsViewController: UIViewController {
             .disposed(by: bag)
     }
     
+    //MARK: skip operator
     
     func skip() {
         Observable.of("A", "B", "C", "D", "E", "F")
@@ -117,6 +120,8 @@ class FilteringOperatorsViewController: UIViewController {
         
     }
     
+    
+    //MARL: take operator
     
     func take() {
         Observable.of(1, 2, 3, 4, 5, 6)
