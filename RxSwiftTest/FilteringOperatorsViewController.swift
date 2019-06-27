@@ -24,7 +24,9 @@ class FilteringOperatorsViewController: UIViewController {
 //        skipUntil()
 //        take()
 //        takeWhile()
-        takeUntil()
+//        takeUntil()
+//        distinctUntilChanged()
+        customDistinctUntilChanged()
     }
     
     
@@ -170,6 +172,48 @@ class FilteringOperatorsViewController: UIViewController {
         
         subject.onNext("3")
         
+    }
+    
+    //MARK: Distinct operatoer
+    
+    func distinctUntilChanged() {
+        
+        /**
+         “These are strings, which conform to Equatable. So, these elements are compared for equality based on their implementation conforming to Equatable. However, you can provide your own custom comparing logic by using distinctUntilChanged(_:), where the externally unnamed parameter is a comparer.”
+        **/
+        Observable.of("A", "A", "B", "B", "A")
+            .distinctUntilChanged()
+            .subscribe(onNext: {
+                print($0)
+            })
+            .disposed(by: bag)
+    }
+    
+    func customDistinctUntilChanged() {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .spellOut
+        
+        Observable<NSNumber>.of(10, 110, 20, 200, 210, 310)
+            .distinctUntilChanged { (a, b) -> Bool in
+                guard let aWords = formatter.string(from: a)?.components(separatedBy: ""),
+                    let bWords = formatter.string(from: b)?.components(separatedBy: "")
+                    else {
+                        return false
+                }
+                
+                var containsMatch = false
+                for aWord in aWords where bWords.contains(aWord) {
+                    containsMatch = true
+                    break
+                }
+                
+                return containsMatch
+                
+            }
+            .subscribe(onNext: {
+                print($0)
+            })
+        .disposed(by: bag)
     }
 }
     
