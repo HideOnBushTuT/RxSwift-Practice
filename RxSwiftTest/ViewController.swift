@@ -24,9 +24,13 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let foVC = FilteringOperatorsViewController()
-        addChild(foVC)
-        view.addSubview(foVC.view)
+        let toVC = TransformingOperatorsViewController()
+        addChild(toVC)
+        view.addSubview(toVC.view)
+        
+//        let foVC = FilteringOperatorsViewController()
+//        addChild(foVC)
+//        view.addSubview(foVC.view)
 //        let subjectsVC = SubjectsViewController()
 //        subjectsVC.view.frame = view.bounds;
 //        addChild(subjectsVC)
