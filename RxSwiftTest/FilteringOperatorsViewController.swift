@@ -215,6 +215,19 @@ class FilteringOperatorsViewController: UIViewController {
             })
         .disposed(by: bag)
     }
+    
+    
+    //MARK: Challenge
+    
+    func phoneNumber(from inputs: [Int]) -> String {
+        var phone = inputs.map(String.init).joined()
+        
+        phone.insert("-", at: phone.index(phone.startIndex, offsetBy: 3))
+        
+        phone.insert("-", at: phone.index(phone.startIndex, offsetBy: 7))
+        
+        return phone
+    }
 }
     
     
