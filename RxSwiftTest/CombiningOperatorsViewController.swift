@@ -22,7 +22,11 @@ class CombiningOperatorsViewController: UIViewController {
 //        merge()
 //        combineLatest()
 //        combineUserChoiceAndValue()
-        zip()
+//        zip()
+//        withLastestFrom()
+//        amb()
+//        reduce()
+        scan()
     }
     
     func startWith() -> Void {
@@ -175,6 +179,80 @@ class CombiningOperatorsViewController: UIViewController {
          “Did you notice how Vienna didn’t show up in the output? Why is that?
          The explanation lies in the way zip operators work. They pair each next value of each observable at the same logical position (1st with 1st, 2nd with 2nd, etc.). This implies that if no next value from one of the inner observables is available at the next logical position (i.e. because it completed, like in the example above), zip won‘t emit anything anymore. This is called indexed sequencing, which is a way to walk sequences in lockstep. But while zip may stop emitting values early, it won‘t itself complete until all its inner observables complete, making sure each can complete its work.”
         */
+    }
+    
+    func withLastestFrom() -> Void {
+        let button = PublishSubject<Void>()
+        let textField = PublishSubject<String>()
+        
+        let observable = button.withLatestFrom(textField)
+        _ = observable.subscribe(onNext: { (value) in
+            print(value)
+        })
+        
+        textField.onNext("Par")
+        textField.onNext("Pari")
+        textField.onNext("Paris")
+        button.onNext(())
+        button.onNext(())
+        textField.onNext("p")
+        textField.onNext("Paris")
+        button.onNext(())
+        
+        /***
+         Paris
+         Paris
+         Paris
+         */
+        
+        /***
+         “Don’t forget that withLatestFrom(_:) takes the data observable as a parameter, while sample(_:) takes the trigger observable as a parameter. This can easily be a source of mistakes — so be careful!”
+                    */
+    }
+    
+    
+    
+    func amb() -> Void {
+        let left = PublishSubject<String>()
+        let right = PublishSubject<String>()
+        
+        let observable = left.amb(right)
+        _ = observable.subscribe(onNext: { (value) in
+            print(value)
+        })
+        
+        left.onNext("Lisbon")
+        right.onNext("Copenhagen")
+        left.onNext("London")
+        left.onNext("Madrid")
+        right.onNext("Vienna")
+        
+        left.onCompleted()
+        right.onCompleted()
+        
+    }
+    
+    
+    func reduce() -> Void {
+        let source = Observable.of(1, 3, 5, 7 ,9)
+//        let observable = source.reduce(0, accumulator: +)
+        
+        let observable = source.reduce(0) { summary, newValue in
+                return summary + newValue
+        }
+        _ = observable.subscribe(onNext: {
+            print($0)
+        })
+    }
+    
+    func scan() -> Void {
+        let source = Observable.of(1, 3, 5, 7, 9)
+        
+        let observable = source.scan(0, accumulator: +)
+        _ = observable.subscribe(onNext: {
+            print($0)
+        })
+        
     }
 
 }
